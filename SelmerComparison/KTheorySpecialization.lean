@@ -49,7 +49,13 @@ theorem integralSelmer_eq_classical (B : Nat.Primes → ValuationSubring (Algebr
     integralSelmer m p = classicalSelmerGroup B m p :=
   shaU_eq_classicalSelmer _ _ (Nat.mul_ne_zero p.2.ne_zero two_ne_zero) B hB
 
-/-- `ComparisonHypotheses`, with the archive's group replaced by the textbook group. -/
+/-- `ComparisonHypotheses`, with the archive's group replaced by the textbook group.
+
+The three clauses are classical theorems about `K n = K_n(ℤ)`, proved in Salmons §3:
+finiteness (§3.2), `|K₄ₘ(ℤ){p}| = |S_{p,2m}|` at eligible primes (§3.1–3.2, Theorem 1.1:
+Poitou–Tate plus Quillen–Lichtenbaum), and vanishing at excluded primes (§3.3–3.4,
+Rognes–Weibel at `p = 2`). They stay hypotheses because neither Mathlib nor the archive
+defines algebraic K-groups. -/
 def ClassicalComparisonHypotheses (K : ℕ → Type*) [∀ n, AddCommGroup (K n)]
     (B : Nat.Primes → ValuationSubring (AlgebraicClosure ℚ)) : Prop :=
   (∀ m > 0, Finite (K (4 * m))) ∧
@@ -83,3 +89,14 @@ end SelmerComparison
 #print axioms SelmerComparison.shaU_eq_classicalSelmer
 #print axioms SelmerComparison.integralSelmer_eq_classical
 #print axioms SelmerComparison.log_card_le_of_classical
+
+/-
+Provenance note. The derivation `Bound + comparison ⇒ log |K₄ₘ(ℤ)| ≤ C (m+1)^A`, including
+the specialization of the archive's `ShaU` to ℚ_p/ℤ_p(−2m) and the comparison stated as an
+explicit hypothesis (`KTheoryComparison` in the working file `ArchiveSelmer.lean`, and
+`KTheoryGrowth.lean`), was written independently of Salmons' note, in local working files dated
+17:00 UTC on 21 November 2026. Salmons posted the observation publicly first (Zulip, 17:26 UTC),
+and this repository's first commit is later (19:08 UTC). The identification with the classical
+Selmer group and the citations of §3 above follow Salmons' note. The file timestamps are local
+modification times, not a public record.
+-/
