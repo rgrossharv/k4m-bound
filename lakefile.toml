@@ -1,5 +1,5 @@
 name = "k4m_bound"
-defaultTargets = ["KTheoryBound"]
+defaultTargets = ["KTheoryBound", "SelmerComparison"]
 
 [leanOptions]
 autoImplicit = false
@@ -15,3 +15,8 @@ rev = "23aebbb302010b292314d406aa97f7901d698634"
 [[lean_lib]]
 name = "KTheoryBound"
 globs = ["KTheoryBound", "KTheoryBound.+"]
+
+# The archive's `ShaU` equals the textbook Selmer group (light imports only).
+[[lean_lib]]
+name = "SelmerComparison"
+globs = ["SelmerComparison.+"]
