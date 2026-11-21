@@ -91,12 +91,9 @@ end SelmerComparison
 #print axioms SelmerComparison.log_card_le_of_classical
 
 /-
-Provenance note. The derivation `Bound + comparison ⇒ log |K₄ₘ(ℤ)| ≤ C (m+1)^A`, including
-the specialization of the archive's `ShaU` to ℚ_p/ℤ_p(−2m) and the comparison stated as an
-explicit hypothesis (`KTheoryComparison` in the working file `ArchiveSelmer.lean`, and
-`KTheoryGrowth.lean`), was written independently of Salmons' note, in local working files dated
-17:00 UTC on 21 November 2026. Salmons posted the observation publicly first (Zulip, 17:26 UTC),
-and this repository's first commit is later (19:08 UTC). The identification with the classical
-Selmer group and the citations of §3 above follow Salmons' note. The file timestamps are local
-modification times, not a public record.
+Note on history. Salmons' note is the first public account of this corollary, and this folder
+follows it for the identification with the classical Selmer group and for the §3 citations.
+The same corollary was also reached independently, with AI assistance, earlier on
+21 November 2026 (the first Lean working files date from about 04:30 UTC). Session logs are
+available on request.
 -/

@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "k4m-bound: a Lean formalization of a log-polynomial bound for |K_{4m}(Z)| from the Alpöge archive's Selmer estimate"
+type: software
+authors:
+  - family-names: Gross
+    given-names: Ryland
+repository-code: "https://github.com/rgrossharv/k4m-bound"
+license: Apache-2.0
+date-released: 2026-11-21
+keywords:
+  - Lean 4
+  - formalization
+  - algebraic K-theory
+  - Selmer groups
+abstract: >-
+  Lean 4 derivation of log |K_{4m}(Z)| <= C (m+1)^A from the Selmer-length
+  estimate UpperTheory.V.SmallClassNumbers.bound in the Lean archive
+  accompanying Alpöge's announcement, together with a sorry-free proof that
+  the archive's Selmer group ShaU equals the classical Selmer group (continuous
+  H^1 with textbook local conditions, stated in local Galois cohomology). The
+  K-theory comparison is an explicit hypothesis. Prepared with substantial AI
+  assistance.
+references:
+  - type: article
+    authors:
+      - family-names: Salmons
+        given-names: Aki
+    title: "Uniform Selmer lengths and integral K-theory: an exact dictionary and conditional bounds"
+    year: 2026
+    url: "https://github.com/akisalmons/selmer-k-theory-note"
+  - type: software
+    authors:
+      - family-names: Alpöge
+        given-names: Levent
+    title: "Lean development accompanying the announced proof of the Riemann Hypothesis"
+    year: 2026
+    url: "https://github.com/leanprover-community/riemann-hypothesis"
