@@ -36,7 +36,9 @@ arXiv 2611.06300, gives e^{O(n² log n)}. Both hold only up to small torsion. Se
   contains `bound`, and as of 2026-11-21 that verification has not finished.
 * `ComparisonHypotheses` is an explicit hypothesis. Mathlib has no Quillen K-theory. The
   docstring of `KTheoryBound.lean` lists the published theorems that supply each field for
-  K₄ₘ(ℤ). Check these when auditing.
+  K₄ₘ(ℤ). Check these when auditing. At the eligible primes only one direction is assumed,
+  |K₄ₘ(ℤ){p}| ≤ |Selmer group|, i.e. classical Selmer ≤ the archive's `ShaU`
+  (weakened from equality following a suggestion by Aki Salmons on the Lean Zulip).
 
 ## Layout
 

@@ -36,7 +36,9 @@ the whole project builds in about a minute against the archive cache.
     K₄ₘ(ℤ){p} ≅ H²(ℤ[1/p], ℤ_p(2m+1)). Poitou–Tate duality makes this dual to the strict
     Selmer group of ℚ_p/ℤ_p(−2m) (unramified everywhere, trivial at p). At 2 the unramified
     H¹ vanishes because Frobenius acts by 2^{−2m} ≠ 1, so the dual is `integralSelmer m p`
-    (Weibel, *Algebraic K-theory of rings of integers in local and global fields*, Thm 70);
+    (Weibel, *Algebraic K-theory of rings of integers in local and global fields*, Thm 70).
+    The hypothesis is only the inequality |K₄ₘ(ℤ){p}| ≤ |`integralSelmer m p`|, so it suffices
+    that the classical Selmer group is no larger than the archive's `ShaU`;
   - excluded primes (p − 1 ∣ 4m, always including 2 and 3): Rognes–Weibel at p = 2
     (Weibel, Cor. 86). For odd p, K₄ₘ(ℤ)/p is an even eigenspace of Cl(ℚ(ζ_p))/p that comes from
     ℚ or a real quadratic field and vanishes (Weibel, Thm 105 and its proof).

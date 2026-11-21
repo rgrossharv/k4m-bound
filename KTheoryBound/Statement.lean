@@ -77,9 +77,10 @@ theorem selmer_product_bound_of (hbound : Bound) :
 def ComparisonHypotheses (K : ℕ → Type*) [∀ n, AddCommGroup (K n)] : Prop :=
   -- K₄ₘ(ℤ) is finite
   (∀ m > 0, Finite (K (4 * m))) ∧
-  -- at an eligible prime, the p-primary part has the order of the Selmer group
+  -- at an eligible prime, the p-primary part is no larger than the Selmer group
+  -- (only this direction is needed: |K₄ₘ(ℤ){p}| = |classical Selmer| ≤ |archive ShaU|)
   (∀ m > 0, ∀ p : Nat.Primes, 5 ≤ (p : ℕ) → ¬ ((p : ℕ) - 1) ∣ 4 * m →
-    Nat.card (AddCommGroup.primaryComponent (K (4 * m)) (p : ℕ)) = Nat.card (integralSelmer m p)) ∧
+    Nat.card (AddCommGroup.primaryComponent (K (4 * m)) (p : ℕ)) ≤ Nat.card (integralSelmer m p)) ∧
   -- at an excluded prime (p - 1 ∣ 4m, including p = 2, 3), the p-primary part is trivial
   (∀ m > 0, ∀ p : Nat.Primes, ((p : ℕ) - 1) ∣ 4 * m →
     Nat.card (AddCommGroup.primaryComponent (K (4 * m)) (p : ℕ)) = 1)
@@ -97,22 +98,27 @@ theorem log_card_le_of (hbound : Bound) (K : ℕ → Type*) [∀ n, AddCommGroup
   obtain ⟨N, hN, hcard, hvan, hlog⟩ := hsel m hm
   have := hfin m hm
   have hK0 : Nat.card (K (4 * m)) ≠ 0 := Nat.card_pos.ne'
-  suffices heq : Nat.card (K (4 * m)) = N by rw [heq]; exact hlog
-  apply Nat.eq_of_factorization_eq hK0 hN.ne'
-  intro q
-  by_cases hq : q.Prime
-  · let p : Nat.Primes := ⟨q, hq⟩
-    have : Fact q.Prime := ⟨hq⟩
-    have hprim := card_primaryComponent (K (4 * m)) q
-    by_cases he : 5 ≤ q ∧ ¬ (q - 1) ∣ 4 * m
-    · have h1 := hprim.symm.trans ((helig m hm p he.1 he.2).trans (hcard p he.1 he.2).symm)
-      exact Nat.pow_right_injective hq.two_le h1
-    · have hexc : (q - 1) ∣ 4 * m := (not_eligible_iff hq).mp he
-      have h1 : q ^ (Nat.card (K (4 * m))).factorization q = q ^ 0 := by
-        rw [← hprim, pow_zero]; exact hexcl m hm p hexc
-      rw [Nat.pow_right_injective hq.two_le h1,
-        Nat.factorization_eq_zero_of_not_dvd (hvan p hexc)]
-  · simp [Nat.factorization_eq_zero_of_not_prime _ hq]
+  -- |K (4m)| divides N, prime by prime
+  have hdvd : Nat.card (K (4 * m)) ∣ N := by
+    rw [← Nat.factorization_le_iff_dvd hK0 hN.ne']
+    intro q
+    by_cases hq : q.Prime
+    · let p : Nat.Primes := ⟨q, hq⟩
+      have : Fact q.Prime := ⟨hq⟩
+      have hprim := card_primaryComponent (K (4 * m)) q
+      by_cases he : 5 ≤ q ∧ ¬ (q - 1) ∣ 4 * m
+      · have h1 : q ^ (Nat.card (K (4 * m))).factorization q ≤ q ^ N.factorization q :=
+          hprim.symm.le.trans ((helig m hm p he.1 he.2).trans (hcard p he.1 he.2).symm.le)
+        exact (Nat.pow_le_pow_iff_right hq.two_le).mp h1
+      · have hexc : (q - 1) ∣ 4 * m := (not_eligible_iff hq).mp he
+        have h1 : q ^ (Nat.card (K (4 * m))).factorization q = q ^ 0 := by
+          rw [← hprim, pow_zero]; exact hexcl m hm p hexc
+        rw [Nat.pow_right_injective hq.two_le h1]
+        exact Nat.zero_le _
+    · simp [Nat.factorization_eq_zero_of_not_prime _ hq]
+  have hle : (Nat.card (K (4 * m)) : ℝ) ≤ N := by exact_mod_cast Nat.le_of_dvd hN hdvd
+  have hpos : (0 : ℝ) < Nat.card (K (4 * m)) := by exact_mod_cast Nat.pos_of_ne_zero hK0
+  exact (Real.log_le_log hpos hle).trans hlog
 
 /-! ## 4. The hypotheses are satisfiable -/
 
@@ -149,7 +155,7 @@ theorem comparisonHypotheses_consistent_of (hbound : Bound) :
   refine ⟨fun m _ => inferInstance, fun m hm p hp5 hp => ?_, fun m hm p hp => ?_⟩
   · have : Fact (p : ℕ).Prime := ⟨p.2⟩
     rw [hcard, hN4 m hm]
-    exact (hf m hm).2.1 p hp5 hp
+    exact ((hf m hm).2.1 p hp5 hp).le
   · have : Fact (p : ℕ).Prime := ⟨p.2⟩
     rw [hcard, hN4 m hm, Nat.factorization_eq_zero_of_not_dvd ((hf m hm).2.2 p hp), pow_zero]
 
