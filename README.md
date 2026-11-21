@@ -48,6 +48,7 @@ arXiv 2611.06300, gives e^{O(n² log n)}. Both hold only up to small torsion. Se
 | `scripts/check-archive-signature.lean` | Checks that the restatement is identical to the archive's compiled theorem. |
 | `KTheoryBound/ArchiveSpecialization.lean` | Specializes the archive's Selmer groups to ℤ_p-coefficients, twist −2m, over ℚ. |
 | `KTheoryBound/OrderFromLengths.lean`, `PadicLength.lean` | Elementary lemmas (orders from prime-power lengths). |
+| `archiveplusfolder/` | **Full independent check without the `sorry`** (Comparator, for machines with ~100 GB RAM). See its README. |
 | `docs/RESEARCH_NOTES.md` | Mathematical notes: what a *polynomial* bound would need (open), archive survey, literature comparison. |
 
 ## Building

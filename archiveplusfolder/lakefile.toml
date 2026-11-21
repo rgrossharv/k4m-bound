@@ -1,0 +1,17 @@
+name = "k4m_full_check"
+
+# The parent project (KTheoryBound.*), which itself pins the RH archive (package `tree`)
+# at commit 23aebbb302010b292314d406aa97f7901d698634.
+[[require]]
+name = "k4m_bound"
+path = ".."
+
+# Statements with `sorry`, importing only the archive's *definitions* (via KTheoryBound.Statement).
+[[lean_lib]]
+name = "Challenge"
+roots = ["Challenge"]
+
+# The same statements, proved from the archive's actual theorem (no sorry). Heavy.
+[[lean_lib]]
+name = "Solution"
+roots = ["Solution"]

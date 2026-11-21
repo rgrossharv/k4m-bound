@@ -1,0 +1,14 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "KTheoryBoundCheck.selmer_product_bound",
+    "KTheoryBoundCheck.log_card_le",
+    "KTheoryBoundCheck.comparisonHypotheses_consistent"
+  ],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "external_kernels": {
+    "Lean paranoid": ["leanchecker-paranoid", "--silent", "--from-export"],
+    "nanoda": ["nanoda_bin"]
+  }
+}

@@ -5,17 +5,20 @@
 #   1. git clone https://github.com/leanprover-community/riemann-hypothesis.git ARCHIVE
 #      git -C ARCHIVE checkout 23aebbb302010b292314d406aa97f7901d698634
 #   2. in ARCHIVE, follow its README:  lake exe cache get && lake build --no-build
-#   3. bash scripts/link-archive-cache.sh ARCHIVE
+#   3. bash scripts/link-archive-cache.sh ARCHIVE [PROJECT_DIR]
+#      (PROJECT_DIR defaults to this repository; use archiveplusfolder for the full check)
 #
 # The archive's .lake/build is about 100 GB, so we symlink instead of copying.
 set -euo pipefail
-here=$(cd -- "$(dirname -- "$0")/.." && pwd)
-archive=$(realpath -- "${1:?usage: link-archive-cache.sh ARCHIVE_DIR}")
+archive=$(realpath -- "${1:?usage: link-archive-cache.sh ARCHIVE_DIR [PROJECT_DIR]}")
+here=$(realpath -- "${2:-$(dirname -- "$0")/..}")
 
 python3 - "$here/lake-manifest.json" "$archive" <<'PY'
 import json, subprocess, sys
 manifest, archive = sys.argv[1], sys.argv[2]
 for p in json.load(open(manifest))["packages"]:
+    if p["type"] != "git":
+        continue
     d = archive if p["name"] == "tree" else f"{archive}/.lake/packages/{p['name']}"
     rev = subprocess.run(["git", "-C", d, "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
     if rev != p["rev"]:
