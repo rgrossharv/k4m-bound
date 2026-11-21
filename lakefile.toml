@@ -1,0 +1,17 @@
+name = "k4m_bound"
+defaultTargets = ["KTheoryBound"]
+
+[leanOptions]
+autoImplicit = false
+relaxedAutoImplicit = false
+
+# The Lean development accompanying the claimed RH proof (package name `tree`),
+# pinned to the exact commit whose community build cache we use.
+[[require]]
+name = "tree"
+git = "https://github.com/leanprover-community/riemann-hypothesis.git"
+rev = "23aebbb302010b292314d406aa97f7901d698634"
+
+[[lean_lib]]
+name = "KTheoryBound"
+globs = ["KTheoryBound", "KTheoryBound.+"]
